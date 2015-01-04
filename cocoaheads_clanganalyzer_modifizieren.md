@@ -15,7 +15,7 @@ Statisch bedeutet der Code wird ohne ausgeführt zu werden auf bestimmte Eigensc
 
 # Was ist der Static Analyzer?
 
-Der Analyzer besteht aus mehreren feststellen die alle auf verschiedene Eigenschaften prüfen
+Der Analyzer besteht aus mehreren Checkern, die alle auf verschiedene Eigenschaften prüfen.
 
 ---
 
@@ -34,11 +34,24 @@ Der Analyzer besteht aus mehreren feststellen die alle auf verschiedene Eigensch
 
 - Vollständige Liste: [http://clang-analyzer.llvm.org/available_checks.html](http://clang-analyzer.llvm.org/available_checks.html)
 
+![inline](checker webseite.png)
+
 ---
 
 - Xcode Clang ist dem eigentlichen Clang in der Regel einige Versionsnummern hinten dran.
 
 - **Selbst wenn man den Clang nicht erweitern möchte, findet ein neuerer Clang durchaus mehr oder andere Probleme im Code**
+
+---
+
+Siehe Xcode LLVM/Clang Version:
+
+![inline](xcodeLLVM.png)
+
+VS. LLVM Release Schedule:
+
+![inline](llvmSchedule.png)
+
 
 ---
 # How to build your own Clang
@@ -61,11 +74,11 @@ Zwei Möglichkeiten:
 
 ---
 
-- ScanBuild HTML Ouput(mit ScanView): (Im Projektordner)  ```pathToScanBuild xcodebuild```
+- ScanBuild HTML Ouput (mit ScanView): (Im Projektordner)  ```pathToScanBuild xcodebuild```
 
 ![inline](analyzer_html.png)
 
-(Hinweis: scanBuild muss sich im Überordner relativ zum bin-Ordner des kompilierten Clang befinden)
+(Hinweis: `scanBuild` muss sich im Überordner relativ zum `bin`-Ordner des kompilierten Clang befinden)
 
 ---
 
@@ -76,7 +89,7 @@ Den aktuellsten Build findet man auch fertig kompiliert unter: [http://clang-ana
 ---
 #Eigenen Clang-Analyzer in Xcode einbinden
 
-- In den Clang Quellen existiert Tool namens: "set-xcode-analyzer"
+- In den Clang Quellen existiert Tool namens: `set-xcode-analyzer`
 - ScanBuild muss wie oben beschrieben im übergeordneten Ordner zum Clang-bin-Ordner platziert sein
 - Eignen Clang einstellen: 
 ```sudo ./set-xcode-analyzer --use-checker-build=PATH_TO_CLANGPARENTFOLDER_WITH_SCANBUILD```
@@ -86,7 +99,7 @@ Den aktuellsten Build findet man auch fertig kompiliert unter: [http://clang-ana
 
 - Xcode Clang zurücksetzen:
 ```sudo ./set-xcode-analyzer --use-xcode-clang```
-- Funktioniert nun über Analyze Button
+- Funktioniert nun über Analyze-Button
 
 ---
 #Eigenen Clang-Analyzer in Xcode einbinden
@@ -96,7 +109,7 @@ Den aktuellsten Build findet man auch fertig kompiliert unter: [http://clang-ana
 
 # Clang erweitern - Warum?
 
-- Umsetzung von (Unternehmens)-Richtlinien (Verbotene Funktionen,etc.)
+- Umsetzung von (Unternehmens)-Richtlinien (Verbotene Funktionen, etc.)
 
 - Verifizierung von Framework Verwendung
 
