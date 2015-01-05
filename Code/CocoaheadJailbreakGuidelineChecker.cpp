@@ -35,7 +35,7 @@
 using namespace clang;
 using namespace ento;
 
-class CocoheadJailbreakGuidlineChecker: public Checker <check::PostObjCMessage,
+class CocoaheadJailbreakGuidlineChecker: public Checker <check::PostObjCMessage,
                                                       check::EndFunction> {
 
   std::unique_ptr<BugType> NoJailbreakCheckPerformedBugType;
@@ -48,9 +48,9 @@ class CocoheadJailbreakGuidlineChecker: public Checker <check::PostObjCMessage,
 
   bool isArgUnConstrained(Optional<NonLoc>, SValBuilder &, ProgramStateRef) const;
   public:
-    CocoheadJailbreakGuidlineChecker(void): IISecurityKit(0),IISetSecurityLevel(nullptr){
+    CocoaheadJailbreakGuidlineChecker(void): IISecurityKit(0),IISetSecurityLevel(nullptr){
       NoJailbreakCheckPerformedBugType.reset(new BugType(this,
-       "CocoheadJailbreakGuidlineChecker: Application is marked as Intern, but no Jailbreak Check made in same function context",
+       "CocoaheadJailbreakGuidlineChecker: Application is marked as Intern, but no Jailbreak Check made in same function context",
         "GISJailbreakGuidline Error"));
 
     }
@@ -64,7 +64,7 @@ REGISTER_TRAIT_WITH_PROGRAMSTATE(InternSecurityLevel, bool)
 REGISTER_TRAIT_WITH_PROGRAMSTATE(JailbreakCheckMade, bool)
 
 //checks every Objc Method Call
-void CocoheadJailbreakGuidlineChecker::checkPostObjCMessage(const ObjCMethodCall &msg, CheckerContext &C) const {
+void CocoaheadJailbreakGuidlineChecker::checkPostObjCMessage(const ObjCMethodCall &msg, CheckerContext &C) const {
   
   //init necessary stuff
   ProgramStateRef state = C.getState(); //gets current state
@@ -127,7 +127,7 @@ void CocoheadJailbreakGuidlineChecker::checkPostObjCMessage(const ObjCMethodCall
 }
 
 //check if jailbreak check is reached till end of function
-void CocoheadJailbreakGuidlineChecker::checkEndFunction(CheckerContext &C) const {
+void CocoaheadJailbreakGuidlineChecker::checkEndFunction(CheckerContext &C) const {
   ProgramStateRef state = C.getState();
 
   //get state values
@@ -147,11 +147,11 @@ void CocoheadJailbreakGuidlineChecker::checkEndFunction(CheckerContext &C) const
 
 }
 
-void CocoheadJailbreakGuidlineChecker::initIdentifierInfo(ASTContext &Ctx) const {
+void CocoaheadJailbreakGuidlineChecker::initIdentifierInfo(ASTContext &Ctx) const {
   IISecurityKit = &Ctx.Idents.get("SecurityKit");
 }
 
 
-void ento::registerCocoheadJailbreakGuidlineChecker(CheckerManager &mgr) {
-  mgr.registerChecker<CocoheadJailbreakGuidlineChecker>();
+void ento::registerCocoaheadJailbreakGuidlineChecker(CheckerManager &mgr) {
+  mgr.registerChecker<CocoaheadJailbreakGuidlineChecker>();
 }

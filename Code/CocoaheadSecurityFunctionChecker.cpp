@@ -13,7 +13,7 @@ namespace {
 
 
 }
-class CocoheadSecurityFunctionChecker: public Checker < check::PreCall  > {
+class CocoaheadSecurityFunctionChecker: public Checker < check::PreCall  > {
   std::unique_ptr<BugType> boBug, ufhBug;
   mutable std::vector<IdentifierInfo*> bufferOverflowIdentifierVector, unsafeFileHandleIdentifierVector;
   mutable IdentifierInfo *IIprintf,*IIstrcat,*IIstrcpy,*IIstrncat, 
@@ -24,15 +24,15 @@ class CocoheadSecurityFunctionChecker: public Checker < check::PreCall  > {
 
 
 public:
-  CocoheadSecurityFunctionChecker(void): IIprintf(0),IIstrcat(0),IIstrcpy(0),IIstrncat(0),IIstrncpy(0),IIsprintf(0),IIvsprintf(0),IIgets(0) {
-    boBug.reset(new BugType(this, "Potential BufferOverflow Function", "CocoheadSecurityFunctionChecker Error"));
-    ufhBug.reset(new BugType(this, "Unsafe File Handle Function", "CocoheadSecurityFunctionChecker Error"));
+  CocoaheadSecurityFunctionChecker(void): IIprintf(0),IIstrcat(0),IIstrcpy(0),IIstrncat(0),IIstrncpy(0),IIsprintf(0),IIvsprintf(0),IIgets(0) {
+    boBug.reset(new BugType(this, "Potential BufferOverflow Function", "CocoaheadSecurityFunctionChecker Error"));
+    ufhBug.reset(new BugType(this, "Unsafe File Handle Function", "CocoaheadSecurityFunctionChecker Error"));
 
   }
   void checkPreCall(const CallEvent &, CheckerContext &) const;
 };
 
-void CocoheadSecurityFunctionChecker::checkPreCall(const CallEvent &Call, CheckerContext &C) const {
+void CocoaheadSecurityFunctionChecker::checkPreCall(const CallEvent &Call, CheckerContext &C) const {
   initIdentifierInfo(C.getASTContext());
   const IdentifierInfo *ID = Call.getCalleeIdentifier();
 
@@ -40,20 +40,20 @@ void CocoheadSecurityFunctionChecker::checkPreCall(const CallEvent &Call, Checke
   //check if 
   if (std::find(bufferOverflowIdentifierVector.begin(), bufferOverflowIdentifierVector.end(), ID) != bufferOverflowIdentifierVector.end()){
     ExplodedNode *N = C.addTransition(NULL);
-    BugReport *bug = new BugReport(*boBug, "CocoheadSecurityFunctionChecker: Use of a potential Buffer Overflow Function. Usage is not allowed.", N);
+    BugReport *bug = new BugReport(*boBug, "CocoaheadSecurityFunctionChecker: Use of a potential Buffer Overflow Function. Usage is not allowed.", N);
     C.emitReport(bug);
   }
 
   if (std::find(unsafeFileHandleIdentifierVector.begin(), unsafeFileHandleIdentifierVector.end(), ID) != unsafeFileHandleIdentifierVector.end()){
     ExplodedNode *ErrNode = C.generateSink();
-    BugReport *bug = new BugReport(*ufhBug, "CocoheadSecurityFunctionChecker: Use of a unsafe file handeling function. Usage is not allowed.", ErrNode);
+    BugReport *bug = new BugReport(*ufhBug, "CocoaheadSecurityFunctionChecker: Use of a unsafe file handeling function. Usage is not allowed.", ErrNode);
     C.emitReport(bug);
   }
 
   return; 
 }
 
-void CocoheadSecurityFunctionChecker::initIdentifierInfo(ASTContext &Ctx) const {
+void CocoaheadSecurityFunctionChecker::initIdentifierInfo(ASTContext &Ctx) const {
   //gis req 15  bufferoverflow
   IIprintf = &Ctx.Idents.get("printf");
   IIstrcat = &Ctx.Idents.get("strcat");
@@ -89,6 +89,6 @@ void CocoheadSecurityFunctionChecker::initIdentifierInfo(ASTContext &Ctx) const 
 }
 
 
-void ento::registerCocoheadSecurityFunctionChecker(CheckerManager &mgr) {
-  mgr.registerChecker<CocoheadSecurityFunctionChecker>();
+void ento::registerCocoaheadSecurityFunctionChecker(CheckerManager &mgr) {
+  mgr.registerChecker<CocoaheadSecurityFunctionChecker>();
 }
