@@ -192,7 +192,7 @@ IIprintf = &ASTContext.Idents.get("printf");
 - Nun können wir im Event prüfen, ob der Identifier des aktuellen Context *printf* ist:
 
 ```C++
-void CocoheadSecurityFunctionChecker::checkPreCall(const CallEvent &Call, CheckerContext &C) const {
+void CocoaheadSecurityFunctionChecker::checkPreCall(const CallEvent &Call, CheckerContext &C) const {
   initIdentifierInfo(C.getASTContext()); //initiiert die Identifier
   const IdentifierInfo *ID = Call.getCalleeIdentifier();
 
@@ -210,14 +210,14 @@ void CocoheadSecurityFunctionChecker::checkPreCall(const CallEvent &Call, Checke
 - Bugs erstellt man indem man sie zuerst Global definiert, via reset
 
 ```C++
-boBug.reset(new BugType(this, "Potential BufferOverflow Function", "CocoheadSecurityFunctionChecker Error"));
+boBug.reset(new BugType(this, "Potential BufferOverflow Function", "CocoaheadSecurityFunctionChecker Error"));
 ```
 
 - Man wirft sie aus indem man dem Context einen Bugreport mit Bug-Art,Beschreibung und Location übergibt
 
 ```C++
 ExplodedNode *ErrNode = C.generateSink(); //Location anhand des Context (Hinweis: Sink beendet alle weiteren Checks anhand dieses Ablaufs)
-BugReport *bug = new BugReport(*boBug, "CocoheadSecurityFunctionChecker: Use of a unsafe file handeling function. Usage is not allowed.", ErrNode); 
+BugReport *bug = new BugReport(*boBug, "CocoaheadSecurityFunctionChecker: Use of a unsafe file handeling function. Usage is not allowed.", ErrNode); 
 C.emitReport(bug); //auslösen des reports
 ```
 
@@ -228,8 +228,8 @@ C.emitReport(bug); //auslösen des reports
 Ein Checker muss dem CheckerManager mitteilen, dass es ihn gibt:
 
 ```C++
-void ento::registerCocoheadSecurityFunctionChecker(CheckerManager &mgr) {
-  mgr.registerChecker<CocoheadSecurityFunctionChecker>();
+void ento::registerCocoaheadSecurityFunctionChecker(CheckerManager &mgr) {
+  mgr.registerChecker<CocoaheadSecurityFunctionChecker>();
 }
 ```
 
@@ -244,9 +244,9 @@ void ento::registerCocoheadSecurityFunctionChecker(CheckerManager &mgr) {
 ```bash
 let ParentPackage = Security in {
 //a lot of other code
-def CocoheadSecurityFunctionChecker :Checker<"CocoheadSecurityFunctionChecker">,
+def CocoaheadSecurityFunctionChecker :Checker<"CocoaheadSecurityFunctionChecker">,
   HelpText<"Checks for security">,
-  DescFile<"CocoheadSecurityFunctionChecker.cpp">;
+  DescFile<"CocoaheadSecurityFunctionChecker.cpp">;
  }
  ```
 
