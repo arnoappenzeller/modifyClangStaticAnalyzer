@@ -217,7 +217,7 @@ boBug.reset(new BugType(this, "Potential BufferOverflow Function", "CocoheadSecu
 
 ```C++
 ExplodedNode *ErrNode = C.generateSink(); //Location anhand des Context (Hinweis: Sink beendet alle weiteren Checks anhand dieses Ablaufs)
-BugReport *bug = new BugReport(*ufhBug, "CocoheadSecurityFunctionChecker: Use of a unsafe file handeling function. Usage is not allowed.", ErrNode); 
+BugReport *bug = new BugReport(*boBug, "CocoheadSecurityFunctionChecker: Use of a unsafe file handeling function. Usage is not allowed.", ErrNode); 
 C.emitReport(bug); //auslösen des reports
 ```
 
