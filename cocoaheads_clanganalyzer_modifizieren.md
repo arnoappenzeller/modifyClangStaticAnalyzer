@@ -89,7 +89,7 @@ Den aktuellsten Build findet man auch fertig kompiliert unter: [http://clang-ana
 ---
 #Eigenen Clang-Analyzer in Xcode einbinden
 
-- In den Clang Quellen existiert Tool namens: `set-xcode-analyzer`
+- In den Clang Quellen existiert Tool namens: `set-xcode-analyzer
 - ScanBuild muss wie oben beschrieben im übergeordneten Ordner zum Clang-bin-Ordner platziert sein
 - Eignen Clang einstellen: 
 ```sudo ./set-xcode-analyzer --use-checker-build=PATH_TO_CLANGPARENTFOLDER_WITH_SCANBUILD```
